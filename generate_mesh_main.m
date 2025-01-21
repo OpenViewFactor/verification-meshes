@@ -7,10 +7,10 @@ addpath('submodules\distmesh-utilities\')
 %   2 = Perpendicular Rectangles (both elements span full shared edge)
 %   3 = Coaxial Discs
 %   4 = Coaxial Cylinders  **Does not work atm
-config = 3;
+config = 2;
 
 % Choose scale
-scale = 23;
+scale = 33;
 
 if config == 1
     % Get User Inputs for Parameters 
@@ -18,7 +18,7 @@ if config == 1
     y = input('Enter y dimension of elements: ');
     z = input('Enter distance between plates: ');
 
-    % Dimensions of Single Plate
+    % Dimensions of Single Plate21
     bt_pts = [0 0 0; x 0 0; x y 0; 0 y 0];
 
     % Generate Bottom Element
