@@ -1,5 +1,6 @@
 % Don't know how to write stl file to a specific folder using stlwrite so
 %   user must manually move the files to a folder
+clear
 addpath('submodules\distmesh-utilities\')
 
 % Choose configuration
@@ -7,10 +8,10 @@ addpath('submodules\distmesh-utilities\')
 %   2 = Perpendicular Rectangles (both elements span full shared edge)
 %   3 = Coaxial Discs
 %   4 = Coaxial Cylinders  **Does not work atm
-config = 2;
+config = 3;
 
 % Choose scale
-scale = 33;
+scale = 30;
 
 if config == 1
     % Get User Inputs for Parameters 
@@ -100,7 +101,8 @@ elseif config == 4
     in_trngl = generateCylinder(0, h, 360, ri, [0 0 0], scale);
     out_trngl = generateCylinder(0, h, 360, ro, [0 0 0], scale);
     
-    % How to check normals for these? Previous method will not work
+    % 
+
 else
     disp('Chosen configuration is not an option')
 end
