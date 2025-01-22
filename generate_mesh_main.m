@@ -8,10 +8,10 @@ addpath('submodules\distmesh-utilities\')
 %   2 = Perpendicular Rectangles (both elements span full shared edge)
 %   3 = Coaxial Discs
 %   4 = Coaxial Cylinders  **Does not work atm
-config = 3;
+config = 4;
 
 % Choose scale
-scale = 30;
+scale = 19;
 
 if config == 1
     % Get User Inputs for Parameters 
@@ -98,10 +98,24 @@ elseif config == 4
     h = input('Enter height of cylinders: ');
 
     % Generate Elements
-    in_trngl = generateCylinder(0, h, 360, ri, [0 0 0], scale);
-    out_trngl = generateCylinder(0, h, 360, ro, [0 0 0], scale);
+    in_trngl = generateCylinder(0, h, 2*pi, ri, [0 0], scale);
+    out_trngl = generateCylinder(0, h, 2*pi, ro, [0 0], scale);
     
-    % 
+    % Check Normals
+    sngl_tri = [in_trngl.Points(in_trngl.ConnectivityList(1,1),:); in_trngl.Points(in_trngl.ConnectivityList(1,2),:); in_trngl.Points(in_trngl.ConnectivityList(1,3),:)];
+    sngl_tri_nrm = cross(sngl_tri(2,:)-sngl_tri(1,:),sngl_tri(3,:)-sngl_tri(1,:));
+    if dot(sngl_tri_nrm,sngl_tri(1,:)) < 0
+        in_trngl = flipNormals(in_trngl);
+    end
+    sngl_tri = [out_trngl.Points(out_trngl.ConnectivityList(1,1),:); out_trngl.Points(out_trngl.ConnectivityList(1,2),:); out_trngl.Points(out_trngl.ConnectivityList(1,3),:)];
+    sngl_tri_nrm = cross(sngl_tri(2,:)-sngl_tri(1,:),sngl_tri(3,:)-sngl_tri(1,:));
+    if dot(sngl_tri_nrm,sngl_tri(1,:)) > 0
+        out_trngl = flipNormals(out_trngl);
+    end
+
+    % Write to Folder
+    stlwrite(in_trngl,['inner-r=',num2str(ri),'-h=',num2str(h),'.stl'],'binary');
+    stlwrite(out_trngl,['outter-r=',num2str(ro),'-h=',num2str(h),'.stl'],'binary');
 
 else
     disp('Chosen configuration is not an option')
