@@ -1,17 +1,17 @@
 % Don't know how to write stl file to a specific folder using stlwrite so
 %   user must manually move the files to a folder
 clear
-addpath('submodules\distmesh-utilities\')
+addpath('submodules//distmesh-utilities//')
 
 % Choose configuration
 %   1 = Aligned Parallel Rectangles
 %   2 = Perpendicular Rectangles (both elements span full shared edge)
 %   3 = Coaxial Discs
 %   4 = Coaxial Cylinders  **Does not work atm
-config = 4;
+config = input('Enter a config (1 (par rect), 2 (perp rect), 3 (par discs), 4 (cyl): ');
 
 % Choose scale
-scale = 19;
+scale = input('Enter a scale factor: ');
 
 if config == 1
     % Get User Inputs for Parameters 
@@ -115,7 +115,7 @@ elseif config == 4
 
     % Write to Folder
     stlwrite(in_trngl,['inner-r=',num2str(ri),'-h=',num2str(h),'.stl'],'binary');
-    stlwrite(out_trngl,['outter-r=',num2str(ro),'-h=',num2str(h),'.stl'],'binary');
+    stlwrite(out_trngl,['outer-r=',num2str(ro),'-h=',num2str(h),'.stl'],'binary');
 
 else
     disp('Chosen configuration is not an option')
