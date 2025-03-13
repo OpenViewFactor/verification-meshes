@@ -17,7 +17,7 @@ arc_length = @(r,h,s) h/sqrt(r) / s;
 num_divisions = @(al) floor(2*pi / al);
 
 
-for j = 6 : length(scale_factors)
+for j = 1 : length(scale_factors)
   scale = scale_factors(j);
   folder_name = output_path + "L" + num2str(j) + "/";
   
